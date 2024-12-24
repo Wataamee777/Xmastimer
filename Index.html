@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリスマスタイマー</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #282c34;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+        #message {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+        #timer {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">クリスマスまであと...</h1>
+    <div id="timer">00:00:00</div>
+    <div id="message"></div>
+
+    <script>
+        function updateTimer() {
+            const now = new Date();
+            const christmas = new Date(now.getFullYear(), 11, 25); // 11 = December
+            const timeDifference = christmas - now;
+
+            if (timeDifference <= 0) {
+                document.getElementById("title").textContent = "🎄 メリークリスマス！ 🎄";
+                document.getElementById("timer").textContent = "";
+                document.getElementById("message").textContent = "素敵なクリスマスをお過ごしください！";
+                return;
+            }
+
+            const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+            const seconds = Math.floor((timeDifference / 1000) % 60);
+
+            document.getElementById("timer").textContent =
+                String(hours).padStart(2, '0') + ":" +
+                String(minutes).padStart(2, '0') + ":" +
+                String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
